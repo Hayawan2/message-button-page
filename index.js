@@ -1,11 +1,12 @@
 const express = require('express');
-const fetch = require('node-fetch');
 const cors = require('cors');
+const fetch = require('node-fetch');
+
 const app = express();
-app.use(cors());
+app.use(cors()); // allow requests from any origin
 app.use(express.json());
 
-const WEBHOOK = 'https://discord.com/api/webhooks/1472675351762305106/zrGmmYVIa4m8BxGQlvbeRxwCh-_elbgR_u8kSsXFrnox2YpXwNreeCmpXWuER0bf6bIt'; // keep this private
+const WEBHOOK = 'https://discord.com/api/webhooks/1472675351762305106/zrGmmYVIa4m8BxGQlvbeRxwCh-_elbgR_u8kSsXFrnox2YpXwNreeCmpXWuER0bf6bIt';
 
 app.post('/send-message', async (req, res) => {
   const { message, name } = req.body;
@@ -26,5 +27,3 @@ app.post('/send-message', async (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
-
