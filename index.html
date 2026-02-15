@@ -6,38 +6,47 @@
 <title>DM Me!</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  /* 4K background */
   body {
     margin: 0;
     font-family: 'Inter', Arial, sans-serif;
-    background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=3840&q=80') no-repeat center center fixed;
-    background-size: cover;
     color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    overflow: hidden;
   }
 
-  /* Discord DM card */
+  /* Full-screen video */
+  #bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+  }
+
   .dm-card {
-    background: rgba(44, 47, 51, 0.85);
+    background: rgba(44, 47, 51, 0.9);
     border-radius: 20px;
     box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-    width: 400px;
-    max-width: 90%;
-    padding: 20px;
+    width: 500px; /* Reduced from 400px */
+    max-width: 95%;
+    padding: 24px 32px; /* More vertical padding, less horizontal */
     display: flex;
     flex-direction: column;
+    overflow: hidden;
     animation: fadeIn 1s ease;
     backdrop-filter: blur(6px);
+    box-sizing: border-box;
   }
 
-  /* Header with profile */
   .header {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 16px; /* Increased spacing */
   }
 
   .profile-pic {
@@ -46,6 +55,7 @@
     border-radius: 50%;
     margin-right: 15px;
     border: 2px solid #7289da;
+    object-fit: cover;
   }
 
   .profile-name {
@@ -55,14 +65,13 @@
 
   h2 {
     font-weight: 600;
-    margin: 10px 0;
+    margin: 10px 0 16px 0; /* Increased bottom margin */
     text-align: center;
   }
 
-  /* Message input area */
   textarea {
     width: 100%;
-    padding: 12px;
+    padding: 16px; /* Increased padding */
     border-radius: 12px;
     border: none;
     font-size: 14px;
@@ -71,6 +80,9 @@
     background: rgba(255, 255, 255, 0.1);
     color: #fff;
     transition: background 0.3s;
+    box-sizing: border-box;
+    margin-bottom: 8px;
+    min-height: 80px; /* Taller textarea */
   }
 
   textarea::placeholder {
@@ -81,10 +93,9 @@
     background: rgba(255, 255, 255, 0.2);
   }
 
-  /* Send button */
   button {
-    margin-top: 12px;
-    padding: 12px;
+    margin-top: 12px; /* Increased spacing */
+    padding: 14px;
     border-radius: 12px;
     border: none;
     width: 100%;
@@ -93,17 +104,19 @@
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
+    box-sizing: border-box;
   }
 
   button:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
     background: linear-gradient(90deg, #5b6eae, #7289da);
   }
 
   #status {
-    margin-top: 10px;
+    margin-top: 12px; /* Increased spacing */
     font-size: 14px;
     text-align: center;
+    min-height: 20px;
   }
 
   @keyframes fadeIn {
@@ -114,13 +127,19 @@
 </head>
 <body>
 
+<!-- Video background -->
+<video autoplay muted loop id="bg-video">
+  <source src="background.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
 <div class="dm-card">
   <div class="header">
-    <img class="profile-pic" src="https://cdn.discordapp.com/avatars/YOUR_DISCORD_ID/YOUR_AVATAR.png?size=128" alt="Your Profile">
-    <div class="profile-name">YourName</div>
+    <img class="profile-pic" src="profile.png" alt="Profile">
+    <div class="profile-name">Hayawaan</div>
   </div>
   <h2>Send me a DM</h2>
-  <textarea id="message" placeholder="Type your message here..." rows="5"></textarea>
+  <textarea id="message" placeholder="Type your message here..." rows="4"></textarea> <!-- Increased rows -->
   <button onclick="sendMessage()">Send</button>
   <p id="status"></p>
 </div>
