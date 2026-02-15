@@ -3,21 +3,24 @@ const cors = require('cors');
 const fetch = require('node-fetch');
 
 const app = express();
-app.use(cors()); // allow requests from any origin
+app.use(cors());
 app.use(express.json());
 
 const WEBHOOK = 'https://discord.com/api/webhooks/1472675351762305106/zrGmmYVIa4m8BxGQlvbeRxwCh-_elbgR_u8kSsXFrnox2YpXwNreeCmpXWuER0bf6bIt';
 
 app.post('/send-message', async (req, res) => {
+  console.log("Incoming message:", req.body);
   const { message, name } = req.body;
+
   if (!message) return res.status(400).send({ success: false, error: 'No message' });
 
   try {
-    await fetch(WEBHOOK, {
+    const response = await fetch(WEBHOOK, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ content: `**${name || 'Anonymous'}** says: ${message}` })
     });
+    console.log("Discord response status:", response.status);
     res.send({ success: true });
   } catch (err) {
     console.error(err);
