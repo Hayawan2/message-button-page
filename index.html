@@ -49,7 +49,9 @@
   .profile-pic { width: 50px; height: 50px; border-radius: 50%; margin-right: 15px; border: 2px solid #7289da; object-fit: cover; }
   .profile-name { font-weight: 600; font-size: 18px; }
   h2 { font-weight: 600; margin: 10px 0 16px 0; text-align: center; }
-  textarea {
+
+  /* Name and message boxes styled the same */
+  .input-field {
     width: 100%;
     padding: 16px;
     border-radius: 12px;
@@ -62,10 +64,14 @@
     transition: background 0.3s;
     box-sizing: border-box;
     margin-bottom: 8px;
-    min-height: 80px;
   }
-  textarea::placeholder { color: #ccc; }
-  textarea:focus { background: rgba(255, 255, 255, 0.2); }
+
+  /* Name box: single line, message box: taller */
+  #senderName { min-height: 40px; }  /* roughly same height as before */
+  #message { min-height: 80px; }
+
+  .input-field::placeholder { color: #ccc; }
+  .input-field:focus { background: rgba(255, 255, 255, 0.2); }
 
   button {
     margin-top: 12px;
@@ -81,6 +87,7 @@
     box-sizing: border-box;
   }
   button:hover { transform: scale(1.02); background: linear-gradient(90deg, #5b6eae, #7289da); }
+
   #status { margin-top: 12px; font-size: 14px; text-align: center; min-height: 20px; }
 
   @keyframes fadeInPage { from { opacity: 0; } to { opacity: 1; } }
@@ -101,10 +108,12 @@
   </div>
   <h2>Send me a DM</h2>
 
-  <!-- NEW: Name input field -->
-  <input type="text" id="senderName" placeholder="Your name (optional)" style="width: 100%; padding: 12px; border-radius: 12px; border: none; margin-bottom: 8px; box-sizing: border-box;">
+  <!-- Name input -->
+  <textarea id="senderName" class="input-field" rows="1" placeholder="Your name (optional)"></textarea>
 
-  <textarea id="message" placeholder="Type your message here..." rows="4"></textarea>
+  <!-- Message input -->
+  <textarea id="message" class="input-field" rows="4" placeholder="Type your message here..."></textarea>
+
   <button onclick="sendMessage()">Send</button>
   <p id="status"></p>
 </div>
@@ -121,7 +130,6 @@
       return;
     }
 
-    // Use the name if provided, else default to "Anonymous"
     const senderName = nameInput || "Anonymous";
 
     try {
@@ -135,7 +143,7 @@
       if (data.success) {
         document.getElementById("status").innerText = "Message sent! ✅";
         document.getElementById("message").value = "";
-        document.getElementById("senderName").value = ""; // clear name input
+        document.getElementById("senderName").value = "";
       } else {
         document.getElementById("status").innerText = "Failed to send message ❌";
         console.error(data.error);
@@ -149,4 +157,3 @@
 
 </body>
 </html>
-
