@@ -9,7 +9,7 @@ app.use(express.json());
 const WEBHOOK = 'https://discord.com/api/webhooks/1472675351762305106/zrGmmYVIa4m8BxGQlvbeRxwCh-_elbgR_u8kSsXFrnox2YpXwNreeCmpXWuER0bf6bIt';
 
 // ⚠️ Replace this with your Discord user ID
-const YOUR_USER_ID = 'YOUR_DISCORD_USER_ID';
+const YOUR_USER_ID = '719218818747990038';
 
 app.post('/send-message', async (req, res) => {
   console.log("Incoming message:", req.body);
@@ -23,7 +23,7 @@ app.post('/send-message', async (req, res) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 
-        content: `<@${719218818747990038}> **${name || 'Anonymous'}** says: ${message}` 
+        content: `<@${YOUR_USER_ID}> **${name || 'Anonymous'}** says: ${message}` 
       })
     });
     console.log("Discord response status:", response.status);
@@ -36,3 +36,4 @@ app.post('/send-message', async (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
